@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import argparse
 
 def write_file(file_path, data):
     if data:
@@ -40,11 +41,17 @@ def urlscan(url):
     return data_result
 
 def main():
-    urls = open('./scanRootURLs.txt', 'r').read().splitlines()
-    root_dir = './URLScan'
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('-f', '--file', dest='file', help='static html file path', default='./scanRootURLs.txt')
+    parser.add_argument('-o', '--output', dest='output', help='output file path', default='./scan_output/')
+
+    args = parser.parse_args()
+
+    urls = open(args.file, 'r').read().splitlines()
+    root_dir = './'
     for url in urls:
         print('[+] Now scanning: ' + url)
-        file_name = root_dir + './scan_output/potential_url_' + url.split('/')[2] + '.txt'
+        file_name = root_dir + args.output + './potential_url_' + url.split('/')[2] + '.txt'
         json_data = urlscan(url)
         if json_data:
             list_data = fetch_potential_url(json_data)
