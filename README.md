@@ -13,9 +13,9 @@ Put your target in `scanRootURLs.txt`. It'll parse all `a` tag, `link` tag, `img
   $ python parse_html_potential_url.py
   ```
 * To use static scan attribute, you must manually store the webpage html in ./static_scan_input and it'll use ./scanRootURLs.txt as target to fetch the static file in ./static_scan_input
-```bash
-$ python parse_html_potential_url.py --static_scan
-```
+  ```bash
+  $ python parse_html_potential_url.py --static_scan
+  ```
 
 * All CLI arguments
   ```bash
