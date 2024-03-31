@@ -1,0 +1,7 @@
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/1910.59648a23871efbb8.legacy.js
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/4186.07559d8b1590b234.js
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/bundle.06605a8511aeff17.js
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/bundle.d65aefe50c5ef1d2.legacy.js
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/webpack-runtime.9372c9b4fa7c39a5.js
+https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/webpack-runtime.ff400b98039b5d26.legacy.js
+https://www.googletagmanager.com/ns.html?id=GTM-WJZQSJF
