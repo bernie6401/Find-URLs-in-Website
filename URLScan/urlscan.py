@@ -8,6 +8,9 @@ def write_file(file_path, data):
         with open(file_path, 'w', encoding='utf-8') as f:
             for item in data:
                 f.write("%s\n" % item)
+        f.close()
+    else:
+        print("[x] Error: No url data")
 
 def fetch_potential_url(json_file):
     potential_url = []
@@ -44,18 +47,24 @@ def main():
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('-f', '--file', dest='file', help='static html file path', default='./scanRootURLs.txt')
     parser.add_argument('-o', '--output', dest='output', help='output file path', default='./scan_output/')
+    parser.add_argument('-u', '--url', dest='url', help='Single url to scan', default='****')
 
     args = parser.parse_args()
 
-    urls = open(args.file, 'r').read().splitlines()
-    root_dir = './'
+    if args.url == '****':
+        urls = open(args.file, 'r').read().splitlines()
+    else:
+        urls = [args.url]
     for url in urls:
         print('[+] Now scanning: ' + url)
-        file_name = root_dir + args.output + './potential_url_' + url.split('/')[2] + '.txt'
+        file_name = args.output + 'potential_url_' + url.split('/')[2] + '.txt'
         json_data = urlscan(url)
         if json_data:
             list_data = fetch_potential_url(json_data)
-            write_file(file_name, list_data)
+            write_file(file_name, sorted(list_data))
+            print("[+] Done: ", file_name)
+        else:
+            print("[x] Error: No json data")
         
 
 if __name__ == '__main__':
