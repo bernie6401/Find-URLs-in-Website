@@ -17,10 +17,23 @@ Put your target in `scanRootURLs.txt`. It'll parse all `a` tag, `link` tag, `img
   $ python parse_html_potential_url.py --static_scan
   ```
 
+* You can also use `-u` argument to scan single url.
+  ```bash
+  $ python parse_html_potential_url.py -u {single url}
+  # or
+  $ python parse_html_potential_url.py -u {single url} --static_scan 
+  ```
+
+* If you don't want to scan specific tag during the process, you can use `--no_{tag name}_tag`
+  ```bash
+  $ python parse_html_potential_url.py --no_a_tag
+  ```
+
 * All CLI arguments
   ```bash
-  $ python parse_html_potential_url.py -h
-  usage: parse_html_potential_url.py [-h] [--static_scan] [-f FILE] [-o OUTPUT] [-i INPUT]
+  $ python Self\ Script/parse_html_potential_url.py -h
+  usage: parse_html_potential_url.py [-h] [--static_scan] [-f FILE] [-o OUTPUT] [-i INPUT] [--no_a_tag] [--no_link_tag]
+                                    [--no_img_tag] [--no_script_tag] [--no_iframe_tag] [--no_source_tag] [--no_area_tag] [-u URL]
 
   Process some integers.
 
@@ -32,6 +45,14 @@ Put your target in `scanRootURLs.txt`. It'll parse all `a` tag, `link` tag, `img
                           output file path
     -i INPUT, --input INPUT
                           input file path
+    --no_a_tag            scan a tag or not
+    --no_link_tag         scan link tag or not
+    --no_img_tag          scan img tag or not
+    --no_script_tag       scan script tag or not
+    --no_iframe_tag       scan iframe tag or not
+    --no_source_tag       scan source tag or not
+    --no_area_tag         scan area tag or not
+    -u URL, --url URL     Single url to scan
   ```
 
 ### URLScan
@@ -42,10 +63,17 @@ I just try to call [urlscan](https://urlscan.io/)'s API and parse the result to 
   $ python urlscan.py
   ```
 
+* You can also use `-u` argument to scan single url.
+  ```bash
+  $ python parse_html_potential_url.py -u {single url}
+  # or
+  $ python parse_html_potential_url.py -u {single url} --static_scan 
+  ```
+
 * All CLI arguments
   ```bash
-  $ python urlscan.py -h
-  usage: urlscan.py [-h] [-f FILE] [-o OUTPUT]
+  $ python URLScan/urlscan.py -h
+  usage: urlscan.py [-h] [-f FILE] [-o OUTPUT] [-u URL]
 
   Process some integers.
 
@@ -54,4 +82,5 @@ I just try to call [urlscan](https://urlscan.io/)'s API and parse the result to 
     -f FILE, --file FILE  static html file path
     -o OUTPUT, --output OUTPUT
                           output file path
+    -u URL, --url URL     Single url to scan
   ```
