@@ -29,32 +29,48 @@ def parse_html_potential_url(body_content, url, args):
     url_tags_attr = {'a': 'href', 'link': 'href', 'img': 'src', 'script': 'src', 'iframe': 'src', 'source': 'src', 'area': 'href'}
     for tag in url_tags:
         if tags_scan_or_not[tag]:
-            if tag == 'a':
-                for element in body_content.find_all('a'):
-                    if element.get('href') is not None and element.get('href') != '':
-                        if "http" not in element.get('href') and "https" not in element.get('href'):
-                            if element.get('href')[:2] == '//':
-                                complete_url = url[:-1] + element.get('href') # //example.com -> http://example.com
-                            elif element.get('href')[:2] == './':
-                                complete_url = 'http:' + element.get('href')[1:] # ./p -> current url + 'p'
-                            elif element.get('href')[0] == '#':
-                                complete_url = url + element.get('href')
-                            elif element.get('href')[:4] == 'tel:' or element.get('href')[:7] == 'mailto:':
-                                pass
-                            else:
-                                complete_url = "/".join(url.split('/')[:3]) + element.get('href') # /zh-CN/docs/Web/HTML -> https://developer.mozilla.org/zh-CN/docs/Web/HTML
-                        else:
-                            complete_url = element.get('href')
+        #     if tag == 'a':
+        #         for element in body_content.find_all('a'):
+        #             if element.get('href') is not None and element.get('href') != '':
+        #                 if "http" not in element.get('href') and "https" not in element.get('href'):
+        #                     if element.get('href')[:2] == '//':
+        #                         complete_url = "https:" + element.get('href') # //example.com -> http://example.com
+        #                     elif element.get('href')[:2] == './':
+        #                         complete_url = url + element.get('href')[1:] # ./p -> current url + 'p'
+        #                     elif element.get('href')[0] == '#':
+        #                         complete_url = url + element.get('href')
+        #                     elif element.get('href')[:4] == 'tel:' or element.get('href')[:7] == 'mailto:':
+        #                         pass
+        #                     else:
+        #                         complete_url = "/".join(url.split('/')[:3]) + element.get('href') # /zh-CN/docs/Web/HTML -> https://developer.mozilla.org/zh-CN/docs/Web/HTML
+        #                 else:
+        #                     complete_url = element.get('href')
                         
-                        links.append(complete_url.replace(' ', ''))
-            else:
-                for element in body_content.find_all(tag):
-                    if element.get(url_tags_attr[tag]) is not None:
-                        if "http" not in element.get(url_tags_attr[tag]) and "https" not in element.get(url_tags_attr[tag]):
-                            complete_url = url[:-1] + element.get(url_tags_attr[tag])
+        #                 links.append(complete_url.replace(' ', ''))
+        #     else:
+        #         for element in body_content.find_all(tag):
+        #             if element.get(url_tags_attr[tag]) is not None:
+        #                 if "http" not in element.get(url_tags_attr[tag]) and "https" not in element.get(url_tags_attr[tag]):
+        #                     complete_url = url[:-1] + element.get(url_tags_attr[tag])
+        #                 else:
+        #                     complete_url = element.get(url_tags_attr[tag])
+        #                 links.append(complete_url.replace(' ', ''))
+            for element in body_content.find_all(tag):
+                if element.get(url_tags_attr[tag]) is not None and element.get(url_tags_attr[tag]) != '':
+                    if "http" not in element.get(url_tags_attr[tag]) and "https" not in element.get(url_tags_attr[tag]):
+                        if element.get(url_tags_attr[tag])[:2] == '//':
+                            complete_url = "https:" + element.get(url_tags_attr[tag]) # //example.com -> http://example.com
+                        elif element.get(url_tags_attr[tag])[:2] == './':
+                            complete_url = url + element.get(url_tags_attr[tag])[1:] # ./p -> current url + 'p'
+                        elif element.get(url_tags_attr[tag])[0] == '#':
+                            complete_url = url + element.get(url_tags_attr[tag])
+                        elif element.get(url_tags_attr[tag])[:4] == 'tel:' or element.get(url_tags_attr[tag])[:7] == 'mailto:':
+                            pass
                         else:
-                            complete_url = element.get(url_tags_attr[tag])
-                        links.append(complete_url.replace(' ', ''))
+                            complete_url = "/".join(url.split('/')[:3]) + element.get(url_tags_attr[tag]) # /zh-CN/docs/Web/HTML -> https://developer.mozilla.org/zh-CN/docs/Web/HTML
+                    else:
+                        complete_url = element.get(url_tags_attr[tag])
+                    links.append(complete_url.replace(' ', ''))
         else:
             pass
 
