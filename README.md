@@ -3,9 +3,50 @@
 This is a tool try to parse a webpage html code and find all potential urls with the script myself or using [urlscan](https://urlscan.io/) API
 
 ## How to use
-If you want to use, just decide which method you'd prefer(My own script or urlscan's API). And then just go to their own folder.
+If you want to use, just decide which method you'd prefer(My own script or urlscan's API). And then just go to their own folder. My script has 2 version, one is use the traditional way to parse all potential attribute to get the link, and the other one is using selenium to parse potential tag that may store the link. Actually, two of them are similar to use, however, I strongly recommend to use selenium version. Because, it's stable to get whole dom file from webdriver. If you use traditional version, sometimes the dom file you fetch by requests library is not complete.
 
-### My Script
+### My Script - Selenium Ver.
+Put your target in `scanRootURLs.txt`or using `-u` argument. It'll parse all `a` tag, `link` tag, `img` tag, `script` tag, `iframe` tag, `source` tag, `area` tag, and find url for each attribute as more as possible. The output is default stored at `./Self Script/scan_output/`
+
+* It'll use ./scanRootURLs.txt as input target Root URL to scan and put output to ./scan_output
+  ```bash
+  $ python scan.py
+  ```
+  
+* You can also use `-u` argument to scan single url.
+  ```bash
+  $ python parse_html_potential_url.py -u {single url}
+  ```
+  
+* If you don't want to scan specific tag during the process, you can use `--no_{tag name}_tag`
+  ```bash
+  $ python parse_html_potential_url.py --no_a_tag
+  ```
+
+* All CLI arguments
+    ```bash
+    $ python scan.py -h                                                    
+    usage: scan.py [-h] [-f FILE] [-o OUTPUT] [--no_a_tag] [--no_link_tag] [--no_img_tag] [--no_script_tag] [--no_iframe_tag] [--no_source_tag] [--no_area_tag]
+               [-u URL]
+    
+    Process some integers.
+    
+    options:
+    -h, --help            show this help message and exit
+    -f FILE, --file FILE  static html file path
+    -o OUTPUT, --output OUTPUT
+                        output file path
+    --no_a_tag            scan a tag or not
+    --no_link_tag         scan link tag or not
+    --no_img_tag          scan img tag or not
+    --no_script_tag       scan script tag or not
+    --no_iframe_tag       scan iframe tag or not
+    --no_source_tag       scan source tag or not
+    --no_area_tag         scan area tag or not
+    -u URL, --url URL     Single url to scan
+    ```
+
+### My Script - Traditional Ver.
 Put your target in `scanRootURLs.txt`. It'll parse all `a` tag, `link` tag, `img` tag, `script` tag, `iframe` tag, `source` tag, `area` tag, and find url for each attribute as more as possible. The output is default stored at `./Self Script/scan_output/`
 
 * It'll use ./scanRootURLs.txt as input target Root URL to scan and put output to ./scan_output
@@ -34,9 +75,9 @@ Put your target in `scanRootURLs.txt`. It'll parse all `a` tag, `link` tag, `img
   $ python Self\ Script/parse_html_potential_url.py -h
   usage: parse_html_potential_url.py [-h] [--static_scan] [-f FILE] [-o OUTPUT] [-i INPUT] [--no_a_tag] [--no_link_tag]
                                     [--no_img_tag] [--no_script_tag] [--no_iframe_tag] [--no_source_tag] [--no_area_tag] [-u URL]
-
+  
   Process some integers.
-
+  
   optional arguments:
     -h, --help            show this help message and exit
     --static_scan         use static html file to scan or not
@@ -74,9 +115,9 @@ I just try to call [urlscan](https://urlscan.io/)'s API and parse the result to 
   ```bash
   $ python URLScan/urlscan.py -h
   usage: urlscan.py [-h] [-f FILE] [-o OUTPUT] [-u URL]
-
+  
   Process some integers.
-
+  
   optional arguments:
     -h, --help            show this help message and exit
     -f FILE, --file FILE  static html file path
